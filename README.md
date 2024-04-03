@@ -63,6 +63,8 @@ User <<- Player
 Mermaid Language:
 
 ```mermaid
+classDiagram
+
 class User {
 	-uid user_id
 	-string nome
@@ -85,7 +87,3 @@ class Player {
 
 User <|-- Player
 ```
-
-Graphical Representation:
-
-[MermaidExample](./MermaidExample.png)
