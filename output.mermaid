@@ -1,0 +1,88 @@
+classDiagram
+
+class User {
+	-uid user_id
+	-string nome
+	-string email
+	-string password
+	+login(string email, string password): string
+	+logout(): void
+	+getUser(uid user_id): User
+	+update(uid user_id): User
+}
+class Player {
+	-int score
+	-int coins
+	-string rank
+	-string photo_url
+	+createAccount(): User
+	+deleteAccount(): void
+}
+class Admin {
+	+blockPlayer(uid player_id): void
+	+createAdminAccount(Admin admin): Admin
+}
+class Continent {
+	-uid id
+	-string name
+	-string photo_url
+	+getContinent(uid continent_id): Continent
+	+updatePhoto(uid continent_id, string photo_url): string
+}
+class Country {
+	-uid id
+	-uid continent_id
+	-string name
+	-string photo_url
+	-int required_coins
+	+getContry(uid country_id): Country
+	+createCountry(): Country
+	+deleteCountry(uid country_id): void
+	+updateCountry(Country country): void
+}
+class UnlockCountry {
+	-uid player_id
+	-uid country_id
+	+createUnlockCountry(Player player, Country country): void
+}
+class Region {
+	-uid id
+	-uid country_id
+	-string name
+	-string description
+	-int priority
+	+getRegion(uid region_id): Region
+	+createRegion(): Region
+	+updateRegion(Region region): Region
+	+deleteRegion(uid region_id): void
+}
+class Question {
+	-uid ID
+	-uid country_id
+	-string level
+	-string a
+	-string b
+	-string c
+	-string d
+	-string right_answer
+	-string statement
+	+getQuestion(uid question_id): Question
+	+createQuestion(): Question
+	+updateQuestion(Question question): Question
+	+deleteQuestion(uid question): void
+}
+class AnswerQuestion {
+	-string player_id
+	-string question_id
+	-bool isRight
+	+responseAnswer(Player player, Question Question): AnswerQuestion
+}
+User <|-- Player
+User <|-- Admin
+Continent "1" *-- "1..*" Country
+Country "1" o-- "1..*" Region
+Country "1" o-- "1..*" Question
+Country "1..*" -- "1" UnlockCountry
+Question "1..*" -- "1" AnswerQuestion
+Player "1..*" -- "1" AnswerQuestion
+Player "1..*" -- "1" UnlockCountry

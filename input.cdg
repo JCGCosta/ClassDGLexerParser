@@ -1,0 +1,95 @@
+class User {
+      - user_id : uid
+      - nome : string
+      - email : string
+      - password : string
+      + login(email: string, password: string): string
+      + logout(): void
+      + getUser(user_id: uid): User
+      + update(user_id: uid): User
+    }
+
+    class Player {
+      - score : int
+      - coins : int
+      - rank : string
+      - photo_url : string
+      + createAccount(): User
+      + deleteAccount(): void
+    }
+
+    class Admin {
+      + blockPlayer(player_id: uid) : void
+      + createAdminAccount(admin: Admin): Admin
+    }
+
+    class Continent {
+        - id : uid
+        - name : string
+        - photo_url : string
+        +getContinent(continent_id: uid): Continent
+        +updatePhoto(continent_id: uid, photo_url: string): string
+    }
+
+    class Country {
+        - id : uid
+        - continent_id : uid
+        - name : string
+        - photo_url : string
+        - required_coins : int
+        + getContry(country_id: uid): Country
+        + createCountry(): Country
+        + deleteCountry(country_id: uid): void
+        + updateCountry(country: Country): void
+    }
+
+    class UnlockCountry {
+        - player_id : uid
+        - country_id : uid
+        + createUnlockCountry(player: Player, country: Country): void
+    }
+
+    class Region {
+        - id : uid
+        - country_id : uid
+        - name : string
+        - description : string
+        - priority : int
+        + getRegion(region_id: uid): Region
+        + createRegion(): Region
+        + updateRegion(region: Region): Region
+        + deleteRegion(region_id: uid): void
+    }
+
+    class Question {
+        - ID : uid
+        - country_id : uid
+        - level : string
+        - a : string
+        - b : string
+        - c : string
+        - d : string
+        - right_answer : string
+        - statement : string
+        + getQuestion(question_id: uid): Question
+        + createQuestion(): Question
+        + updateQuestion(question: Question): Question
+        + deleteQuestion(question: uid): void
+    }
+
+    class AnswerQuestion {
+        - player_id : string
+        - question_id : string
+        - isRight : bool
+        + responseAnswer(player: Player, Question: Question): AnswerQuestion
+    }
+
+    User <<- Player
+    User <<- Admin
+    Continent '1' <<>>-> '1..*' Country
+    Country '1' <>-> '1..*' Region
+    Country '1' <>-> '1..*' Question
+    Country '1..*' - '1' UnlockCountry
+    Question '1..*' - '1' AnswerQuestion
+    Player '1..*' - '1' AnswerQuestion
+    Player '1..*' - '1' UnlockCountry
