@@ -60,7 +60,7 @@ class Player {
 User <<- Player
 ```
 
-Mermaid Language:
+Mermaid Result:
 
 ```mermaid
 classDiagram
